@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manufacturer Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Search for Manufacturers</h2>
+        <form action="#" th:action="@{/api/supplier/query}" method="post">
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Enter location">
+            </div>
+
+            <div class="form-group">
+                <label for="natureOfBusiness">Nature of Business:</label>
+                <select class="form-control" id="natureOfBusiness" name="natureOfBusiness">
+                    <option value="SMALL_SCALE">Small Scale</option>
+                    <option value="MEDIUM_SCALE">Medium Scale</option>
+                    <option value="LARGE_SCALE">Large Scale</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="manufacturingProcesses">Manufacturing Process:</label>
+                <select class="form-control" id="manufacturingProcesses" name="manufacturingProcesses">
+                    <option value="MOULDING">Moulding</option>
+                    <option value="D_PRINTING">3D Printing</option>
+                    <option value="CASTING">Casting</option>
+                    <option value="COATING">Coating</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Display Search Results -->
+        <div class="mt-5">
+            <h3>Search Results</h3>
+            <table class="table table-striped" th:if="${suppliers != null}">
+                <thead>
+                    <tr>
+                        <th>Supplier ID</th>
+                        <th>Company Name</th>
+                        <th>Website</th>
+                        <th>Location</th>
+                        <th>Nature of Business</th>
+                        <th>Manufacturing Processes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="supplier : ${suppliers}">
+                        <td th:text="${supplier.supplierId}"></td>
+                        <td th:text="${supplier.companyName}"></td>
+                        <td><a th:href="'http://' + ${supplier.website}" th:text="${supplier.website}"></a></td>
+                        <td th:text="${supplier.location}"></td>
+                        <td th:text="${supplier.natureOfBusiness}"></td>
+                        <td th:text="${supplier.manufacturingProcesses}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
